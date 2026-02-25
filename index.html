@@ -101,7 +101,7 @@
         .auth-btn { padding: 15px; border: none; border-radius: 8px; background: var(--primary); color: white; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 15px rgba(66, 153, 225, 0.3); }
         .auth-btn:hover { background: var(--primary-hover); transform: translateY(-2px); }
         .auth-switch { background: none; border: none; color: var(--primary); font-size: 0.9rem; cursor: pointer; margin-top: 10px; text-decoration: underline; }
-        #auth-error { color: var(--error); font-size: 0.9rem; display: none; }
+        #auth-error { color: var(--error); font-size: 0.9rem; display: none; font-weight: bold; }
 
         /* Main Game Layout */
         #app-container { display: none; width: 100%; max-width: 500px; padding: 15px; flex: 1; flex-direction: column; }
@@ -196,7 +196,7 @@
     <div id="auth-screen">
         <div class="auth-card">
             <h1>Sudoku Cloud</h1>
-            <p>Sign in to sync your 2000+ victories across all your devices.</p>
+            <p>Sign in to sync your victories across all your devices.</p>
             <input type="email" id="email" class="auth-input" placeholder="Email Address">
             <input type="password" id="password" class="auth-input" placeholder="Password">
             <p id="auth-error"></p>
@@ -291,7 +291,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
   import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-  import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+  import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyBvTGohnUusTQD8WgK6Wg7HIZAvFANEifU",
@@ -354,13 +354,30 @@
               const docSnap = await getDoc(userRef);
               
               if (docSnap.exists()) {
-                  window.game.playerStats = docSnap.data();
+                  const cloudStats = docSnap.data();
+                  const local = window.game.playerStats;
+
+                  let cEasy = cloudStats.bestTimes?.easy || 999999;
+                  let cMed = cloudStats.bestTimes?.medium || 999999;
+                  let cHard = cloudStats.bestTimes?.hard || 999999;
+
+                  window.game.playerStats = {
+                      totalGames: Math.max(local.totalGames, cloudStats.totalGames || 0),
+                      bestTimes: {
+                          easy: Math.min(local.bestTimes.easy || 999999, cEasy),
+                          medium: Math.min(local.bestTimes.medium || 999999, cMed),
+                          hard: Math.min(local.bestTimes.hard || 999999, cHard)
+                      }
+                  };
+                  
+                  window.game.saveLocalStats();
+                  window.saveToCloud(window.game.playerStats);
+                  
               } else {
-                  window.game.playerStats = { totalGames: 2133, bestTimes: { easy: Infinity, medium: Infinity, hard: Infinity } };
                   await setDoc(userRef, window.game.playerStats);
               }
           } catch (error) {
-              console.error("Firestore Error, falling back to LocalStorage:", error);
+              console.error("Firestore Error:", error);
               window.game.loadDataFallback();
           }
           
@@ -382,8 +399,8 @@
 
   window.saveToCloud = async (stats) => {
       if(auth.currentUser) {
-          try { await updateDoc(doc(db, "users", auth.currentUser.uid), stats); } 
-          catch (e) { console.warn("Cloud save failed. Saved locally."); }
+          try { await setDoc(doc(db, "users", auth.currentUser.uid), stats, { merge: true }); } 
+          catch (e) { console.warn("Cloud save failed."); }
       }
   };
 </script>
@@ -419,7 +436,7 @@ class SudokuGame {
         this.soundEnabled = true;
         this.audioCtx = null;
         
-        this.playerStats = { totalGames: 2133, bestTimes: { easy: Infinity, medium: Infinity, hard: Infinity } };
+        this.playerStats = { totalGames: 2133, bestTimes: { easy: 999999, medium: 999999, hard: 999999 } };
         this.themes = ['theme-light', 'theme-dark', 'theme-ocean'];
         this.currentThemeIndex = 0;
 
@@ -472,7 +489,10 @@ class SudokuGame {
         const savedStats = localStorage.getItem('sudokuStats');
         if (savedStats) {
             let local = JSON.parse(savedStats);
-            if (local.totalGames < 2133) local.totalGames += 2133;
+            if (local.totalGames < 2133) local.totalGames = 2133;
+            if (local.bestTimes.easy === null) local.bestTimes.easy = 999999;
+            if (local.bestTimes.medium === null) local.bestTimes.medium = 999999;
+            if (local.bestTimes.hard === null) local.bestTimes.hard = 999999;
             this.playerStats = local;
         }
         this.saveLocalStats();
@@ -502,7 +522,7 @@ class SudokuGame {
 
     updateStatsUI() {
         document.getElementById('stat-total-games').textContent = this.playerStats.totalGames;
-        const formatBestTime = (time) => time === Infinity ? '--:--' : this.formatTime(time);
+        const formatBestTime = (time) => (time === 999999 || time === null) ? '--:--' : this.formatTime(time);
         document.getElementById('stat-best-easy').textContent = formatBestTime(this.playerStats.bestTimes.easy);
         document.getElementById('stat-best-medium').textContent = formatBestTime(this.playerStats.bestTimes.medium);
         document.getElementById('stat-best-hard').textContent = formatBestTime(this.playerStats.bestTimes.hard);
@@ -572,6 +592,8 @@ class SudokuGame {
 
         this.updateStatsUI();
         this.updateNumpadUI();
+        document.getElementById('timer').textContent = "00:00";
+        document.getElementById('mistakes').textContent = "0";
         
         document.querySelectorAll('.overlay').forEach(el => el.classList.remove('active'));
         document.getElementById('pause-btn').textContent = 'Pause';
@@ -585,7 +607,6 @@ class SudokuGame {
         }
     }
 
-    // THE MAGIC SOLVER THAT GUARANTEES UNIQUENESS
     countSolutions(grid) {
         let minOptions = 10;
         let bestR = -1, bestC = -1;
@@ -599,7 +620,7 @@ class SudokuGame {
                     for (let num = 1; num <= 9; num++) {
                         if (this.isSafe(grid, r, c, num)) options++;
                     }
-                    if (options === 0) return 0; // Dead end branch
+                    if (options === 0) return 0; 
                     if (options < minOptions) {
                         minOptions = options;
                         bestR = r; bestC = c;
@@ -616,7 +637,7 @@ class SudokuGame {
                 grid[bestR][bestC] = num;
                 count += this.countSolutions(grid);
                 grid[bestR][bestC] = 0;
-                if (count > 1) return count; // Stop immediately if we find more than 1 solution
+                if (count > 1) return count; 
             }
         }
         return count;
@@ -637,22 +658,27 @@ class SudokuGame {
             }
         }
 
-        if (this.mode === 'killer') this.generateKillerCages();
+        // BUGFIX: Killer Sudoku handles wiping the board explicitly now
+        if (this.mode === 'killer') {
+            this.generateKillerCages();
+            for (let r = 0; r < 9; r++) {
+                for (let c = 0; c < 9; c++) {
+                    this.grid[r][c] = 0; // Wipe the board clean to rely entirely on cage hints
+                }
+            }
+        } else {
+            // Standard Removal Logic for Classic, Ice, Even-Odd, and Greater Than
+            const difficultyMap = { easy: 35, medium: 45, hard: 55 };
+            let targetRemovals = difficultyMap[document.getElementById('difficulty').value];
+            
+            if (this.mode === 'even-odd') targetRemovals += 10;
+            if (this.mode === 'greater') targetRemovals += 5; 
+            
+            targetRemovals = Math.min(targetRemovals, 81);
 
-        const difficultyMap = { easy: 35, medium: 45, hard: 55 };
-        let targetRemovals = difficultyMap[document.getElementById('difficulty').value];
-        
-        if (this.mode === 'even-odd') targetRemovals += 10;
-        if (this.mode === 'greater') targetRemovals += 5; 
-        if (this.mode === 'killer') targetRemovals = 81; 
-        
-        targetRemovals = Math.min(targetRemovals, 81);
-
-        if (this.mode !== 'killer') {
             let positions = [];
             for (let r=0; r<9; r++) for (let c=0; c<9; c++) positions.push({r,c});
             
-            // Random Shuffle
             for (let i = positions.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [positions[i], positions[j]] = [positions[j], positions[i]];
@@ -671,7 +697,7 @@ class SudokuGame {
                 if (checkUniqueness) {
                     let gridCopy = this.grid.map(row => [...row]);
                     if (this.countSolutions(gridCopy) !== 1) {
-                        this.grid[r][c] = temp; // Put it back, it broke the unique solution rule
+                        this.grid[r][c] = temp; 
                     } else {
                         removedCount++;
                     }
@@ -811,7 +837,7 @@ class SudokuGame {
                 setTimeout(() => { if (this.grid[r][c] === 0) cellEl.querySelector('.val').textContent = ''; cellEl.classList.remove('error'); }, 1000);
                 if (this.mistakes >= 3) this.gameOver();
             }
-            this.updateStats();
+            document.getElementById('mistakes').textContent = this.mistakes;
         }
     }
 
@@ -927,9 +953,8 @@ class SudokuGame {
         const prev = this.notesMode; this.notesMode = false; this.applyNumber(this.solution[r][c], r, c); this.notesMode = prev;
     }
 
-    startTimer() { this.timerInterval = setInterval(() => { if (!this.isPaused) { this.time++; this.updateStats(); } }, 1000); }
+    startTimer() { this.timerInterval = setInterval(() => { if (!this.isPaused) { this.time++; document.getElementById('timer').textContent = this.formatTime(this.time); } }, 1000); }
     formatTime(seconds) { return `${Math.floor(seconds / 60).toString().padStart(2, '0')}:${(seconds % 60).toString().padStart(2, '0')}`; }
-    updateStats() { document.getElementById('timer').textContent = this.formatTime(this.time); document.getElementById('mistakes').textContent = this.mistakes; }
 
     togglePause() {
         if (document.getElementById('stats-screen').classList.contains('active') && !this.isPaused) return;
