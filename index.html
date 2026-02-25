@@ -306,7 +306,6 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
 
-  // AUTHENTICATION MANAGER
   window.authManager = {
       isSignUp: false,
       user: null,
@@ -341,7 +340,6 @@
       }
   };
 
-  // Cloud Sync Listener
   onAuthStateChanged(auth, async (user) => {
       if (user) {
           window.authManager.user = user;
@@ -352,27 +350,20 @@
           }, 400);
           
           try {
-              // Load or Create Cloud Stats
               const userRef = doc(db, "users", user.uid);
               const docSnap = await getDoc(userRef);
               
               if (docSnap.exists()) {
                   window.game.playerStats = docSnap.data();
               } else {
-                  // INJECT 2133 HISTORICAL WINS ON NEW ACCOUNT CREATION
-                  window.game.playerStats = {
-                      totalGames: 2133, 
-                      bestTimes: { easy: Infinity, medium: Infinity, hard: Infinity }
-                  };
+                  window.game.playerStats = { totalGames: 2133, bestTimes: { easy: Infinity, medium: Infinity, hard: Infinity } };
                   await setDoc(userRef, window.game.playerStats);
               }
           } catch (error) {
-              console.error("Firestore Error:", error);
-              // Fallback to local storage gracefully if Firestore isn't setup properly
+              console.error("Firestore Error, falling back to LocalStorage:", error);
               window.game.loadDataFallback();
           }
           
-          // CRITICAL BUG FIX: Only trigger the board build once!
           if(!window.game.isInitialized) {
               window.game.isInitialized = true;
               window.game.newGame();
@@ -389,14 +380,10 @@
       }
   });
 
-  // Cloud Save API for Game Over screen
   window.saveToCloud = async (stats) => {
       if(auth.currentUser) {
-          try {
-              await updateDoc(doc(db, "users", auth.currentUser.uid), stats);
-          } catch (e) {
-              console.warn("Could not save to cloud. Saved locally.");
-          }
+          try { await updateDoc(doc(db, "users", auth.currentUser.uid), stats); } 
+          catch (e) { console.warn("Cloud save failed. Saved locally."); }
       }
   };
 </script>
@@ -432,16 +419,13 @@ class SudokuGame {
         this.soundEnabled = true;
         this.audioCtx = null;
         
-        // Base stats (Cloud overrides this)
         this.playerStats = { totalGames: 2133, bestTimes: { easy: Infinity, medium: Infinity, hard: Infinity } };
         this.themes = ['theme-light', 'theme-dark', 'theme-ocean'];
         this.currentThemeIndex = 0;
 
-        // Initialize UI framework immediately, but DO NOT start the game yet.
         this.initUI();
         this.setupKeyboard();
         
-        // Setup Theme
         const savedTheme = localStorage.getItem('sudokuTheme');
         if (savedTheme !== null) {
             this.currentThemeIndex = parseInt(savedTheme);
@@ -484,7 +468,6 @@ class SudokuGame {
         osc.connect(gain); gain.connect(this.audioCtx.destination); osc.start(time); osc.stop(time + 0.05);
     }
 
-    // Local Fallback if Firebase isn't configured
     loadDataFallback() {
         const savedStats = localStorage.getItem('sudokuStats');
         if (savedStats) {
@@ -531,7 +514,6 @@ class SudokuGame {
     }
 
     initUI() {
-        // Runs EXACTLY ONCE on boot
         for (let r = 0; r < 9; r++) {
             for (let c = 0; c < 9; c++) {
                 const cell = document.createElement('div');
@@ -588,7 +570,7 @@ class SudokuGame {
         if (this.mode === 'greater') hintEl.textContent = "Pay attention to the > and < signs!";
         if (this.mode === 'killer') hintEl.textContent = "Cages sum to the top number. No repeats inside a cage!";
 
-        this.updateStats();
+        this.updateStatsUI();
         this.updateNumpadUI();
         
         document.querySelectorAll('.overlay').forEach(el => el.classList.remove('active'));
@@ -601,6 +583,43 @@ class SudokuGame {
                 this.hIneq[r][c] = ''; this.vIneq[r][c] = ''; this.cageGrid[r][c] = null; this.notes[r][c].clear();
             }
         }
+    }
+
+    // THE MAGIC SOLVER THAT GUARANTEES UNIQUENESS
+    countSolutions(grid) {
+        let minOptions = 10;
+        let bestR = -1, bestC = -1;
+        let emptyCount = 0;
+
+        for (let r = 0; r < 9; r++) {
+            for (let c = 0; c < 9; c++) {
+                if (grid[r][c] === 0) {
+                    emptyCount++;
+                    let options = 0;
+                    for (let num = 1; num <= 9; num++) {
+                        if (this.isSafe(grid, r, c, num)) options++;
+                    }
+                    if (options === 0) return 0; // Dead end branch
+                    if (options < minOptions) {
+                        minOptions = options;
+                        bestR = r; bestC = c;
+                    }
+                }
+            }
+        }
+
+        if (emptyCount === 0) return 1;
+
+        let count = 0;
+        for (let num = 1; num <= 9; num++) {
+            if (this.isSafe(grid, bestR, bestC, num)) {
+                grid[bestR][bestC] = num;
+                count += this.countSolutions(grid);
+                grid[bestR][bestC] = 0;
+                if (count > 1) return count; // Stop immediately if we find more than 1 solution
+            }
+        }
+        return count;
     }
 
     generatePuzzle() {
@@ -621,18 +640,45 @@ class SudokuGame {
         if (this.mode === 'killer') this.generateKillerCages();
 
         const difficultyMap = { easy: 35, medium: 45, hard: 55 };
-        let attempts = difficultyMap[document.getElementById('difficulty').value];
+        let targetRemovals = difficultyMap[document.getElementById('difficulty').value];
         
-        if (this.mode === 'even-odd') attempts += 10;
-        if (this.mode === 'greater') attempts += 5; 
-        if (this.mode === 'killer') attempts = 81; 
+        if (this.mode === 'even-odd') targetRemovals += 10;
+        if (this.mode === 'greater') targetRemovals += 5; 
+        if (this.mode === 'killer') targetRemovals = 81; 
         
-        attempts = Math.min(attempts, 81);
+        targetRemovals = Math.min(targetRemovals, 81);
 
-        let removed = 0;
-        while (removed < attempts) {
-            let r = Math.floor(Math.random() * 9), c = Math.floor(Math.random() * 9);
-            if (this.grid[r][c] !== 0) { this.grid[r][c] = 0; removed++; }
+        if (this.mode !== 'killer') {
+            let positions = [];
+            for (let r=0; r<9; r++) for (let c=0; c<9; c++) positions.push({r,c});
+            
+            // Random Shuffle
+            for (let i = positions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [positions[i], positions[j]] = [positions[j], positions[i]];
+            }
+
+            let removedCount = 0;
+            let checkUniqueness = (this.mode === 'classic' || this.mode === 'ice');
+
+            for (let i = 0; i < positions.length; i++) {
+                if (removedCount >= targetRemovals) break;
+                
+                let {r, c} = positions[i];
+                let temp = this.grid[r][c];
+                this.grid[r][c] = 0;
+
+                if (checkUniqueness) {
+                    let gridCopy = this.grid.map(row => [...row]);
+                    if (this.countSolutions(gridCopy) !== 1) {
+                        this.grid[r][c] = temp; // Put it back, it broke the unique solution rule
+                    } else {
+                        removedCount++;
+                    }
+                } else {
+                    removedCount++;
+                }
+            }
         }
 
         if (this.mode === 'ice') {
@@ -930,7 +976,6 @@ class SudokuGame {
     }
 }
 
-// Instantiate globally
 window.game = new SudokuGame();
 </script>
 </body>
