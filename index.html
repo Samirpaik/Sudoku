@@ -5,109 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Modern Sudoku: Cloud Edition</title>
     <style>
-        /* CSS Variables & Themes */
+        /* CSS Variables & Core Themes */
         :root {
-            --bg-color: #f0f4f8;
-            --text-color: #2d3748;
-            --board-bg: #ffffff;
-            --border-light: #cbd5e0;
-            --border-dark: #2d3748;
-            --primary: #4299e1;
-            --primary-hover: #3182ce;
-            --selected: #bee3f8;
-            --related: #e2e8f0;
-            --same-num: #90cdf4;
-            --error: #e53e3e;
-            --error-bg: #fff5f5;
-            --fixed-text: #1a202c;
-            --user-text: #3182ce;
-            --note-text: #718096;
-            --overlay-bg: rgba(255, 255, 255, 0.98);
-            --tool-bg: #e2e8f0;
-            --tool-hover: #cbd5e0;
-            --stats-card-bg: #ffffff;
-            --stripe-color: rgba(128, 128, 128, 0.15);
-            --cage-border: rgba(50, 50, 50, 0.5);
+            --bg-color: #f0f4f8; --text-color: #2d3748; --board-bg: #ffffff;
+            --border-light: #cbd5e0; --border-dark: #2d3748; --primary: #4299e1;
+            --primary-hover: #3182ce; --selected: #bee3f8; --related: #e2e8f0;
+            --same-num: #90cdf4; --error: #e53e3e; --error-bg: #fff5f5;
+            --fixed-text: #1a202c; --user-text: #3182ce; --note-text: #718096;
+            --overlay-bg: rgba(255, 255, 255, 0.98); --tool-bg: #e2e8f0; --tool-hover: #cbd5e0;
+            --stats-card-bg: #ffffff; --stripe-color: rgba(128, 128, 128, 0.15); --cage-border: rgba(50, 50, 50, 0.5);
         }
 
         body.theme-dark {
-            --bg-color: #1a202c;
-            --text-color: #e2e8f0;
-            --board-bg: #2d3748;
-            --border-light: #4a5568;
-            --border-dark: #718096;
-            --primary: #9f7aea;
-            --primary-hover: #805ad5;
-            --selected: #4a5568;
-            --related: #2d3748;
-            --same-num: #4a5568;
-            --error: #fc8181;
-            --error-bg: #440000;
-            --fixed-text: #ffffff;
-            --user-text: #d6bcfa;
-            --note-text: #a0aec0;
-            --overlay-bg: rgba(26, 32, 44, 0.98);
-            --tool-bg: #4a5568;
-            --tool-hover: #718096;
-            --stats-card-bg: #2d3748;
-            --stripe-color: rgba(255, 255, 255, 0.08);
-            --cage-border: rgba(200, 200, 200, 0.6);
+            --bg-color: #1a202c; --text-color: #e2e8f0; --board-bg: #2d3748;
+            --border-light: #4a5568; --border-dark: #718096; --primary: #9f7aea;
+            --primary-hover: #805ad5; --selected: #4a5568; --related: #2d3748;
+            --same-num: #4a5568; --error: #fc8181; --error-bg: #440000;
+            --fixed-text: #ffffff; --user-text: #d6bcfa; --note-text: #a0aec0;
+            --overlay-bg: rgba(26, 32, 44, 0.98); --tool-bg: #4a5568; --tool-hover: #718096;
+            --stats-card-bg: #2d3748; --stripe-color: rgba(255, 255, 255, 0.08); --cage-border: rgba(200, 200, 200, 0.6);
         }
 
-        /* Ocean Theme */
         body.theme-ocean {
-            --bg-color: #e0f7fa;
-            --text-color: #004d40;
-            --board-bg: #ffffff;
-            --border-light: #b2ebf2;
-            --border-dark: #006064;
-            --primary: #00acc1;
-            --primary-hover: #00838f;
-            --selected: #b2ebf2;
-            --related: #e0f7fa;
-            --same-num: #80deea;
-            --error: #d32f2f;
-            --error-bg: #ffcdd2;
-            --fixed-text: #004d40;
-            --user-text: #00acc1;
-            --note-text: #00796b;
-            --overlay-bg: rgba(224, 247, 250, 0.95);
-            --tool-bg: #b2ebf2;
-            --tool-hover: #80deea;
-            --stats-card-bg: #ffffff;
-            --stripe-color: rgba(0, 96, 100, 0.1);
-            --cage-border: rgba(0, 100, 100, 0.6);
+            --bg-color: #e0f7fa; --text-color: #004d40; --board-bg: #ffffff;
+            --border-light: #b2ebf2; --border-dark: #006064; --primary: #00acc1;
+            --primary-hover: #00838f; --selected: #b2ebf2; --related: #e0f7fa;
+            --same-num: #80deea; --error: #d32f2f; --error-bg: #ffcdd2;
+            --fixed-text: #004d40; --user-text: #00acc1; --note-text: #00796b;
+            --overlay-bg: rgba(224, 247, 250, 0.95); --tool-bg: #b2ebf2; --tool-hover: #80deea;
+            --stats-card-bg: #ffffff; --stripe-color: rgba(0, 96, 100, 0.1); --cage-border: rgba(0, 100, 100, 0.6);
         }
 
-        /* Base Setup - Mobile Optimized */
+        /* NEW PREMIUM THEMES */
+        body.theme-dark-pro {
+            --bg-color: #000000; --text-color: #f0f0f0; --board-bg: #111111;
+            --border-light: #333333; --border-dark: #444444; --primary: #00ffcc;
+            --primary-hover: #00ccaa; --selected: #00332a; --related: #1a1a1a;
+            --same-num: #004d40; --error: #ff3333; --error-bg: #330000;
+            --fixed-text: #ffffff; --user-text: #00ffcc; --note-text: #888888;
+            --overlay-bg: rgba(0, 0, 0, 0.98); --tool-bg: #222222; --tool-hover: #333333;
+            --stats-card-bg: #111111; --stripe-color: rgba(255, 255, 255, 0.05); --cage-border: rgba(255, 255, 255, 0.3);
+        }
+        body.theme-gold-elite {
+            --bg-color: #2c001e; --text-color: #333333; --board-bg: #fff8e7;
+            --border-light: #e6c27a; --border-dark: #8b0000; --primary: #d4af37;
+            --primary-hover: #b5952f; --selected: #fbeea1; --related: #fdf5d3;
+            --same-num: #f5d76e; --error: #c0392b; --error-bg: #f9ebea;
+            --fixed-text: #8b0000; --user-text: #d4af37; --note-text: #a0522d;
+            --overlay-bg: rgba(44, 0, 30, 0.98); --tool-bg: #fff8e7; --tool-hover: #fdf5d3;
+            --stats-card-bg: #fff8e7; --stripe-color: rgba(139, 0, 0, 0.1); --cage-border: rgba(139, 0, 0, 0.5);
+        }
+        body.theme-neon-night {
+            --bg-color: #0a0a2a; --text-color: #e0e0ff; --board-bg: #121236;
+            --border-light: #303060; --border-dark: #00ffff; --primary: #ff00ff;
+            --primary-hover: #cc00cc; --selected: #330033; --related: #1a1a4a;
+            --same-num: #004444; --error: #ff3300; --error-bg: #440000;
+            --fixed-text: #00ffff; --user-text: #ff00ff; --note-text: #8888cc;
+            --overlay-bg: rgba(10, 10, 42, 0.98); --tool-bg: #1a1a4a; --tool-hover: #303060;
+            --stats-card-bg: #121236; --stripe-color: rgba(0, 255, 255, 0.1); --cage-border: rgba(255, 0, 255, 0.5);
+        }
+        body.theme-black-gold {
+            --bg-color: #0d0d0d; --text-color: #ffd700; --board-bg: #1a1a1a;
+            --border-light: #4d4000; --border-dark: #ffd700; --primary: #ffb300;
+            --primary-hover: #cc9000; --selected: #332400; --related: #262626;
+            --same-num: #4d3600; --error: #ff4d4d; --error-bg: #330000;
+            --fixed-text: #ffffff; --user-text: #ffd700; --note-text: #b39b00;
+            --overlay-bg: rgba(13, 13, 13, 0.98); --tool-bg: #262626; --tool-hover: #404040;
+            --stats-card-bg: #1a1a1a; --stripe-color: rgba(255, 215, 0, 0.1); --cage-border: rgba(255, 215, 0, 0.5);
+        }
+        body.theme-platinum {
+            --bg-color: #e5e4e2; --text-color: #2c3e50; --board-bg: #ffffff;
+            --border-light: #d0d0d0; --border-dark: #a0b2c6; --primary: #8a9a5b;
+            --primary-hover: #6b7a47; --selected: #e8ecef; --related: #f4f6f7;
+            --same-num: #d6dde4; --error: #e74c3c; --error-bg: #fdf2f0;
+            --fixed-text: #34495e; --user-text: #8a9a5b; --note-text: #95a5a6;
+            --overlay-bg: rgba(229, 228, 226, 0.98); --tool-bg: #ffffff; --tool-hover: #f4f6f7;
+            --stats-card-bg: #ffffff; --stripe-color: rgba(160, 178, 198, 0.2); --cage-border: rgba(138, 154, 91, 0.5);
+        }
+
+        /* Base Setup */
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; touch-action: manipulation; }
         body { background-color: var(--bg-color); color: var(--text-color); display: flex; flex-direction: column; align-items: center; min-height: 100vh; transition: background-color 0.3s, color 0.3s; overflow-x: hidden; }
 
-        /* Full Screen Auth Overlay */
-        #auth-screen {
-            position: fixed; inset: 0; background: var(--bg-color); z-index: 100;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: opacity 0.4s;
-        }
-        .auth-card {
-            background: var(--board-bg); padding: 40px 30px; border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1); width: 90%; max-width: 400px;
-            display: flex; flex-direction: column; gap: 15px; text-align: center;
-        }
+        /* Auth Screen */
+        #auth-screen { position: fixed; inset: 0; background: var(--bg-color); z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.4s; }
+        .auth-card { background: var(--board-bg); padding: 40px 30px; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); width: 90%; max-width: 400px; display: flex; flex-direction: column; gap: 15px; text-align: center; }
         .auth-card h1 { color: var(--primary); font-size: 2.5rem; margin-bottom: 10px; }
-        .auth-card p { margin-bottom: 20px; color: var(--note-text); }
-        .auth-input { padding: 15px; border: 2px solid var(--border-light); border-radius: 8px; font-size: 1rem; background: var(--bg-color); color: var(--text-color); outline: none; transition: border-color 0.2s;}
-        .auth-input:focus { border-color: var(--primary); }
+        .auth-input { padding: 15px; border: 2px solid var(--border-light); border-radius: 8px; font-size: 1rem; background: var(--bg-color); color: var(--text-color); outline: none;}
         .auth-btn { padding: 15px; border: none; border-radius: 8px; background: var(--primary); color: white; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 15px rgba(66, 153, 225, 0.3); }
         .auth-btn:hover { background: var(--primary-hover); transform: translateY(-2px); }
         .auth-switch { background: none; border: none; color: var(--primary); font-size: 0.9rem; cursor: pointer; margin-top: 10px; text-decoration: underline; }
         #auth-error { color: var(--error); font-size: 0.9rem; display: none; font-weight: bold; }
 
-        /* Main Game Layout */
+        /* Main Layout */
         #app-container { display: none; width: 100%; max-width: 500px; padding: 15px; flex: 1; flex-direction: column; }
-        
         .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .header h1 { font-size: 1.8rem; color: var(--primary); }
+        .header h1 { font-size: 1.8rem; color: var(--primary); font-weight: 800;}
         .btn-group { display: flex; gap: 5px; }
         .icon-btn { background: var(--tool-bg); border: none; font-size: 1.2rem; cursor: pointer; padding: 8px 12px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text-color); transition: 0.2s; }
         .icon-btn:hover { background: var(--tool-hover); transform: scale(1.05); }
@@ -116,13 +109,11 @@
         .stat-row { display: flex; justify-content: space-between; align-items: center; width: 100%; }
         .stat { font-weight: 600; font-size: 1rem; }
         select { padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border-light); font-size: 0.9rem; font-weight: 600; background: var(--bg-color); color: var(--text-color); outline: none; }
-
         .mode-hint { font-size: 0.85rem; font-weight: 600; color: var(--primary); text-align: center; margin-bottom: 15px; }
 
         /* Fluid Board */
         .board-wrapper { width: 100%; position: relative; margin-bottom: 20px; display: flex; justify-content: center;}
         .board { width: 100%; max-width: 450px; display: grid; grid-template-columns: repeat(9, 1fr); background: var(--border-dark); border: 3px solid var(--border-dark); gap: 1px; aspect-ratio: 1; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
-        
         .cell { background: var(--board-bg); display: flex; justify-content: center; align-items: center; font-size: clamp(1.2rem, 6vw, 2rem); font-weight: 500; cursor: pointer; position: relative; transition: background-color 0.2s, color 0.2s; user-select: none; }
         .cell:nth-child(3n) { border-right: 2px solid var(--border-dark); }
         .cell:nth-child(9n) { border-right: none; }
@@ -160,7 +151,7 @@
         .note { display: flex; justify-content: center; align-items: center; font-size: clamp(0.5rem, 2vw, 0.7rem); color: var(--note-text); }
         .val { z-index: 3; position: relative; pointer-events: none;}
 
-        /* Mobile Controls */
+        /* Controls */
         .controls-wrapper { margin-top: auto; display: flex; flex-direction: column; gap: 10px; padding-bottom: 20px;}
         .tools { display: flex; justify-content: space-between; gap: 8px; }
         .tool-btn { flex: 1; padding: 12px; border: none; border-radius: 10px; background: var(--tool-bg); cursor: pointer; font-weight: bold; color: var(--text-color); font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: 0.2s;}
@@ -172,8 +163,8 @@
         .num-btn:active { transform: translateY(3px); box-shadow: none; }
         .num-btn.active { background: var(--primary); color: white; transform: translateY(3px); box-shadow: none; }
 
-        /* Overlays */
-        .overlay { position: absolute; inset: 0; background: var(--overlay-bg); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; border-radius: 8px; opacity: 0; pointer-events: none; transition: 0.3s; padding: 20px; text-align: center; }
+        /* Overlays & Menus */
+        .overlay { position: absolute; inset: 0; background: var(--overlay-bg); display: flex; flex-direction: column; align-items: center; z-index: 10; border-radius: 8px; opacity: 0; pointer-events: none; transition: 0.3s; padding: 20px; text-align: center; }
         .overlay.active { opacity: 1; pointer-events: all; }
         .overlay h2 { color: var(--primary); font-size: 2.2rem; margin-bottom: 10px; }
         
@@ -182,8 +173,48 @@
         .stats-highlight .stats-value { font-size: 3.5rem; font-weight: 900; line-height: 1; letter-spacing: 2px; }
         .stat-row-stats { display: flex; justify-content: space-between; font-size: 1.1rem; margin-bottom: 15px; font-weight: bold; color: var(--text-color); border-bottom: 1px solid var(--border-light); padding-bottom: 8px;}
 
-        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-15px); } 60% { transform: translateY(-7px); } }
+        /* Player Profile Card in Stats */
+        .player-card { display: flex; align-items: center; gap: 20px; background: var(--board-bg); padding: 15px; border-radius: 12px; border: 2px solid var(--border-light); width: 100%; margin-bottom: 20px; }
+        .player-frame { width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 2rem; background: var(--bg-color); transition: 0.3s; }
+        .player-info { text-align: left; }
+        .player-title { font-weight: 900; font-size: 1.2rem; color: var(--primary); }
+
+        /* Frames styling dynamically applied via JS classes */
+        .frame-bronze { border: 4px solid #cd7f32; box-shadow: 0 0 10px #cd7f32; }
+        .frame-silver { border: 4px solid #c0c0c0; box-shadow: 0 0 12px #c0c0c0; }
+        .frame-gold { border: 4px solid #ffd700; box-shadow: 0 0 15px #ffd700; }
+        .frame-diamond { border: 4px solid #00e5ff; box-shadow: 0 0 20px #00e5ff; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 10px #00e5ff; } 50% { box-shadow: 0 0 25px #00e5ff; } 100% { box-shadow: 0 0 10px #00e5ff; } }
+        
+        .badge-legend { text-shadow: 0 0 5px var(--primary); background: linear-gradient(90deg, #ff00ff, #00ffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* Extended Shop Overlay */
+        #shop-screen { justify-content: flex-start; padding-top: 30px; overflow-y: hidden; }
+        .shop-header { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .shop-scroll { width: 100%; overflow-y: auto; flex: 1; padding-right: 5px; padding-bottom: 20px; display: flex; flex-direction: column; gap: 15px; text-align: left;}
+        .shop-category h3 { color: var(--text-color); margin-bottom: 10px; border-bottom: 2px solid var(--border-light); padding-bottom: 5px; }
+        .shop-item { display: flex; justify-content: space-between; align-items: center; background: var(--tool-bg); padding: 15px; border-radius: 12px; margin-bottom: 10px; width: 100%; cursor: pointer; border: none; transition: 0.2s;}
+        .shop-item:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); background: var(--related); }
+        .item-info { display: flex; flex-direction: column; gap: 3px; align-items: flex-start;}
+        .item-name { font-weight: bold; color: var(--text-color); font-size: 1rem; }
+        .item-cost { color: var(--primary); font-weight: bold; font-size: 0.9rem; }
+        .item-action { padding: 8px 15px; border-radius: 8px; border: none; font-weight: bold; background: var(--primary); color: white; }
+        .item-action.owned { background: #48bb78; }
+        .item-action.equipped { background: var(--border-dark); color: white;}
+
+        /* Achievements Gallery */
+        #achievements-screen { justify-content: flex-start; padding-top: 30px; overflow-y: hidden; }
+        .achievements-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px; width: 100%; overflow-y: auto; padding-bottom: 30px; }
+        .ach-card { background: var(--board-bg); border: 2px solid var(--border-light); border-radius: 12px; padding: 15px 10px; text-align: center; opacity: 0.4; filter: grayscale(1); transition: 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .ach-card.unlocked { opacity: 1; filter: grayscale(0); border-color: var(--primary); background: var(--related); transform: translateY(-2px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
+        .ach-icon { font-size: 2.5rem; margin-bottom: 5px; }
+        .ach-title { font-size: 0.9rem; font-weight: bold; color: var(--text-color); margin-bottom: 5px; line-height: 1.2; }
+        .ach-desc { font-size: 0.75rem; color: var(--note-text); line-height: 1.2; }
+
+        /* Toast Notification */
+        .toast { position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 15px 25px; border-radius: 50px; font-weight: bold; display: flex; align-items: center; gap: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); transition: bottom 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 1000; width: max-content; max-width: 90vw; }
+        .toast.show { bottom: 30px; }
+        .toast-icon { font-size: 1.5rem; }
 
         @media (min-width: 500px) {
             .numpad { grid-template-columns: repeat(9, 1fr); }
@@ -193,10 +224,12 @@
 </head>
 <body>
 
+    <div id="toast" class="toast"><span id="toast-icon" class="toast-icon"></span><span id="toast-text"></span></div>
+
     <div id="auth-screen">
         <div class="auth-card">
             <h1>Sudoku Cloud</h1>
-            <p>Sign in to sync your victories across all your devices.</p>
+            <p>Sign in to sync your victories and points across devices.</p>
             <input type="email" id="email" class="auth-input" placeholder="Email Address">
             <input type="password" id="password" class="auth-input" placeholder="Password">
             <p id="auth-error"></p>
@@ -211,7 +244,9 @@
             <div class="btn-group">
                 <button class="icon-btn" id="sound-btn" onclick="game.toggleSound()" title="Toggle Sound">🔊</button>
                 <button class="icon-btn" onclick="game.cycleTheme()" title="Change Theme">🌓</button>
+                <button class="icon-btn" onclick="game.showAchievements()" title="Achievements">🏅</button>
                 <button class="icon-btn" onclick="game.showStats()" title="Player Statistics">📊</button>
+                <button class="icon-btn" onclick="game.showShop()" title="Points Shop">🛒</button>
             </div>
         </div>
 
@@ -230,8 +265,9 @@
                     <option value="hard">Hard</option>
                 </select>
             </div>
-            <div class="stat-row" style="border:none; margin:0; padding:0;">
-                <div class="stat">Mistakes: <span id="mistakes" style="color: var(--error);">0</span>/3</div>
+            <div class="stat-row" style="border:none; margin:0; padding:0; margin-top: 5px;">
+                <div class="stat" style="color: #d69e2e;">🪙 <span id="ui-points">0</span> pts</div>
+                <div class="stat" style="color: var(--error);">Mistakes: <span id="mistakes">0</span>/3</div>
                 <div class="stat" id="timer" style="font-family: monospace; font-size: 1.2rem;">00:00</div>
             </div>
         </div>
@@ -246,10 +282,21 @@
                 <button class="auth-btn" onclick="game.togglePause()">Resume</button>
             </div>
 
+            <div class="overlay" id="shop-screen">
+                <div class="shop-header">
+                    <h2>Points Shop</h2>
+                    <div style="font-size:1.5rem; font-weight:bold; color: #d69e2e;">🪙 <span id="shop-points-display">0</span></div>
+                </div>
+                <div class="shop-scroll" id="shop-container">
+                    </div>
+                <button class="auth-btn" style="width:100%; margin-top: 10px; flex-shrink: 0;" onclick="game.hideShop()">Close Shop</button>
+            </div>
+
             <div class="overlay" id="win-screen">
                 <h2 id="win-title">Puzzle Solved!</h2>
                 <p>Time: <span id="final-time" style="font-weight:bold;">00:00</span></p>
-                <button class="auth-btn" onclick="game.newGame()" style="margin-top: 15px;">Next Game</button>
+                <p id="win-pts" style="color: #d69e2e; font-size: 1.5rem; font-weight: bold; margin-bottom: 10px;">+0 Points</p>
+                <button class="auth-btn" onclick="game.newGame()" style="margin-top: 5px;">Next Game</button>
             </div>
             
             <div class="overlay" id="lose-screen">
@@ -258,22 +305,40 @@
                 <button class="auth-btn" onclick="game.newGame()" style="margin-top: 15px;">Try Again</button>
             </div>
 
-            <div class="overlay" id="stats-screen">
-                <div class="stats-highlight">
-                    <span class="icon">🏆</span>
-                    <div class="stats-value" id="stat-total-games">...</div>
-                    <div class="stats-label">Cloud Victories</div>
+            <div class="overlay" id="stats-screen" style="justify-content: flex-start; overflow-y: auto;">
+                <h2>Player Profile</h2>
+                
+                <div class="player-card">
+                    <div id="ui-frame" class="player-frame">👤</div>
+                    <div class="player-info">
+                        <div id="ui-badge" class="player-title">Novice Solver</div>
+                        <div style="color: var(--note-text); font-size: 0.9rem;">Member</div>
+                    </div>
                 </div>
-                <div style="width: 100%; margin-bottom: 25px;">
-                    <h3 style="margin-bottom: 15px; color:var(--primary);">Best Times</h3>
+
+                <div class="stats-highlight" style="margin-bottom: 15px; padding: 15px;">
+                    <span class="icon" style="font-size: 2rem;">🏆</span>
+                    <div class="stats-value" id="stat-total-games" style="font-size: 2.5rem;">...</div>
+                    <div class="stats-label">Total Victories</div>
+                </div>
+
+                <div style="width: 100%; margin-bottom: 25px; background: var(--board-bg); padding: 15px; border-radius: 12px; border: 1px solid var(--border-light);">
+                    <h3 style="margin-bottom: 10px; color:var(--primary); border-bottom: 1px solid var(--border-light); padding-bottom: 5px;">Best Times</h3>
                     <div class="stat-row-stats"><span>Easy</span> <span id="stat-best-easy">--:--</span></div>
                     <div class="stat-row-stats"><span>Medium</span> <span id="stat-best-medium">--:--</span></div>
-                    <div class="stat-row-stats"><span>Hard</span> <span id="stat-best-hard">--:--</span></div>
+                    <div class="stat-row-stats" style="border:none; margin:0; padding:0;"><span>Hard</span> <span id="stat-best-hard">--:--</span></div>
                 </div>
-                <div class="btn-group" style="justify-content: center; gap: 15px;">
-                    <button class="auth-btn" onclick="game.hideStats()">Back</button>
-                    <button class="auth-btn" style="background:var(--error);" onclick="authManager.logout()">Sign Out</button>
+                
+                <div class="btn-group" style="justify-content: center; gap: 15px; width: 100%;">
+                    <button class="auth-btn" style="flex:1;" onclick="game.hideStats()">Back</button>
+                    <button class="auth-btn" style="flex:1; background:var(--error);" onclick="authManager.logout()">Sign Out</button>
                 </div>
+            </div>
+
+            <div class="overlay" id="achievements-screen">
+                <h2 style="flex-shrink: 0;">Achievements</h2>
+                <div class="achievements-grid" id="achievements-grid"></div>
+                <button class="auth-btn" style="width:100%; flex-shrink: 0; margin-top: 10px;" onclick="game.hideAchievements()">Close</button>
             </div>
         </div>
 
@@ -281,7 +346,7 @@
             <div class="tools">
                 <button class="tool-btn" id="erase-btn" onclick="game.toggleEraser()">Erase</button>
                 <button class="tool-btn" id="notes-btn" onclick="game.toggleNotes()">Notes</button>
-                <button class="tool-btn" onclick="game.useHint()">Hint</button>
+                <button class="tool-btn" id="hint-btn-ui" onclick="game.useHint()">Hint (100)</button>
                 <button class="tool-btn" id="pause-btn" onclick="game.togglePause()">Pause</button>
             </div>
             <div class="numpad" id="numpad"></div>
@@ -322,22 +387,15 @@
           const password = document.getElementById('password').value;
           const errorEl = document.getElementById('auth-error');
           errorEl.style.display = 'none';
-
           try {
-              if (this.isSignUp) {
-                  await createUserWithEmailAndPassword(auth, email, password);
-              } else {
-                  await signInWithEmailAndPassword(auth, email, password);
-              }
+              if (this.isSignUp) await createUserWithEmailAndPassword(auth, email, password);
+              else await signInWithEmailAndPassword(auth, email, password);
           } catch (error) {
               errorEl.textContent = error.message.replace('Firebase: ', '');
               errorEl.style.display = 'block';
           }
       },
-
-      async logout() {
-          await signOut(auth);
-      }
+      async logout() { await signOut(auth); }
   };
 
   onAuthStateChanged(auth, async (user) => {
@@ -360,14 +418,25 @@
                   let cEasy = cloudStats.bestTimes?.easy || 999999;
                   let cMed = cloudStats.bestTimes?.medium || 999999;
                   let cHard = cloudStats.bestTimes?.hard || 999999;
+                  
+                  let mergedAch = [...new Set([...(local.achievements||[]), ...(cloudStats.achievements||[])])];
+                  let mergedInvThemes = [...new Set([...(local.inventory?.themes||['theme-light', 'theme-dark', 'theme-ocean']), ...(cloudStats.inventory?.themes||[])])];
+                  let mergedInvFrames = [...new Set([...(local.inventory?.frames||[]), ...(cloudStats.inventory?.frames||[])])];
+                  let mergedInvBadges = [...new Set([...(local.inventory?.badges||[]), ...(cloudStats.inventory?.badges||[])])];
+                  let mergedInvPerks = [...new Set([...(local.inventory?.perks||[]), ...(cloudStats.inventory?.perks||[])])];
 
                   window.game.playerStats = {
                       totalGames: Math.max(local.totalGames, cloudStats.totalGames || 0),
+                      points: Math.max(local.points || 0, cloudStats.points || 0),
+                      lastPlayDate: cloudStats.lastPlayDate || local.lastPlayDate || null,
                       bestTimes: {
                           easy: Math.min(local.bestTimes.easy || 999999, cEasy),
                           medium: Math.min(local.bestTimes.medium || 999999, cMed),
                           hard: Math.min(local.bestTimes.hard || 999999, cHard)
-                      }
+                      },
+                      achievements: mergedAch,
+                      inventory: { themes: mergedInvThemes, frames: mergedInvFrames, badges: mergedInvBadges, perks: mergedInvPerks },
+                      equipped: cloudStats.equipped || local.equipped || { frame: null, badge: null }
                   };
                   
                   window.game.saveLocalStats();
@@ -400,12 +469,70 @@
   window.saveToCloud = async (stats) => {
       if(auth.currentUser) {
           try { await setDoc(doc(db, "users", auth.currentUser.uid), stats, { merge: true }); } 
-          catch (e) { console.warn("Cloud save failed."); }
+          catch (e) {}
       }
   };
 </script>
 
 <script>
+const ACHIEVEMENTS_DEF = {
+    'first_steps': { icon: '👶', title: 'First Steps', desc: 'Solve 1 puzzle' },
+    'momentum': { icon: '🚶', title: 'Momentum', desc: 'Solve 10 puzzles' },
+    'grandmaster': { icon: '🎯', title: 'Grandmaster', desc: 'Solve 100 puzzles' },
+    'veteran': { icon: '🎖️', title: 'Veteran', desc: 'Solve 500 puzzles' },
+    'master': { icon: '👑', title: 'Sudoku Master', desc: 'Solve 1,000 puzzles' },
+    'elite': { icon: '💎', title: 'Elite GM', desc: 'Solve 2,000 puzzles' },
+    'legend': { icon: '🌟', title: 'Legend', desc: 'Solve 3,000 puzzles' },
+    'immortal': { icon: '🌌', title: 'Immortal', desc: 'Solve 5,000 puzzles' },
+    'sonic': { icon: '🚀', title: 'Sonic Boom', desc: 'Easy under 3 mins' },
+    'lightning': { icon: '⚡', title: 'Lightning', desc: 'Easy under 5 mins' },
+    'speed_demon': { icon: '⏱️', title: 'Speed Demon', desc: 'Medium under 8 mins' },
+    'blazing': { icon: '🔥', title: 'Blazing Mind', desc: 'Hard under 15 mins' },
+    'calm': { icon: '🧘', title: 'Calm Thinker', desc: 'Solve taking over 20m' },
+    'flawless': { icon: '✨', title: 'Flawless', desc: 'Win with 0 mistakes' },
+    'ink_only': { icon: '🖋️', title: 'Ink Only', desc: 'Win without Pencil Notes' },
+    'no_eraser': { icon: '🧼', title: 'Confident', desc: 'Win without the Eraser' },
+    'clutch': { icon: '🧗', title: 'Clutch', desc: 'Win with exactly 2 mistakes' },
+    'hero': { icon: '🦸', title: 'Need a Hero', desc: 'Win using 3+ hints' },
+    'logic': { icon: '🧠', title: 'Logic Master', desc: 'Hard without hints' },
+    'true_genius': { icon: '👁️‍🗨️', title: 'True Genius', desc: 'Hard: 0 mistakes, 0 hints' },
+    'ice_win': { icon: '🥶', title: 'Ice Breaker', desc: 'Win an Ice Breaker game' },
+    'even_win': { icon: '☯️', title: 'Perfect Balance', desc: 'Win an Even-Odd game' },
+    'greater_win': { icon: '🐊', title: 'Inequality', desc: 'Win a Greater Than game' },
+    'killer_win': { icon: '🥷', title: 'Cage Fighter', desc: 'Win a Killer Sudoku game' }
+};
+
+const SHOP_DEF = {
+    consumables: [
+        { id: 'buy-hint', name: '💡 Buy Hint', cost: 100, isConsumable: true },
+        { id: 'fill-notes', name: '✍️ Fill All Notes', cost: 150, isConsumable: true },
+        { id: 'freeze-time', name: '❄️ Time Freeze (30s)', cost: 300, isConsumable: true }
+    ],
+    themes: [
+        { id: 'theme-dark-pro', name: 'Dark Mode Pro', cost: 1000 },
+        { id: 'theme-gold-elite', name: 'Gold Elite Theme', cost: 2500 },
+        { id: 'theme-neon-night', name: 'Neon Night Mode', cost: 3000 },
+        { id: 'theme-black-gold', name: 'Black & Gold Royal', cost: 6000 },
+        { id: 'theme-platinum', name: 'Platinum Glow', cost: 9000 }
+    ],
+    frames: [
+        { id: 'frame-bronze', name: 'Bronze Rank Frame', cost: 800 },
+        { id: 'frame-silver', name: 'Silver Rank Frame', cost: 1500 },
+        { id: 'frame-gold', name: 'Gold Crown Frame', cost: 3000 },
+        { id: 'frame-diamond', name: 'Diamond Elite Frame', cost: 6000 }
+    ],
+    badges: [
+        { id: 'badge-legend', name: 'Legend Title Badge', cost: 10000 }
+    ],
+    perks: [
+        { id: 'perk-bonus-5', name: '+5% Lifetime Bonus Points', cost: 5000 },
+        { id: 'perk-bonus-10', name: '+10% Lifetime Bonus Points', cost: 10000 },
+        { id: 'perk-hint-50', name: 'Lifetime Hint Discount (50%)', cost: 15000 },
+        { id: 'perk-daily-2x', name: 'Double Daily Reward', cost: 12000 },
+        { id: 'perk-sunday-5', name: 'Weekly Sunday Bonus (+5%)', cost: 9000 }
+    ]
+};
+
 class SudokuGame {
     constructor() {
         this.boardEl = document.getElementById('board');
@@ -428,34 +555,39 @@ class SudokuGame {
         this.cages = [];
         this.cageGrid = Array.from({length: 9}, () => Array(9).fill(null));
         
-        this.score = 0;
         this.mistakes = 0;
+        this.hintsUsed = 0; 
+        this.usedEraser = false;
+        this.usedNotes = false;
         this.time = 0;
+        this.timeFrozen = false;
+        this.freezeLeft = 0;
         this.timerInterval = null;
         
         this.soundEnabled = true;
         this.audioCtx = null;
         
-        this.playerStats = { totalGames: 2133, bestTimes: { easy: 999999, medium: 999999, hard: 999999 } };
+        // Base Stats setup strictly starts points at 0, backfills 2133 wins
+        this.playerStats = { 
+            totalGames: 2133, 
+            points: 0,
+            lastPlayDate: null,
+            bestTimes: { easy: 999999, medium: 999999, hard: 999999 },
+            achievements: ['first_steps', 'momentum', 'grandmaster', 'veteran', 'master', 'elite'],
+            inventory: { themes: ['theme-light', 'theme-dark', 'theme-ocean'], frames: [], badges: [], perks: [] },
+            equipped: { frame: null, badge: null }
+        };
+        
         this.themes = ['theme-light', 'theme-dark', 'theme-ocean'];
         this.currentThemeIndex = 0;
 
         this.initUI();
         this.setupKeyboard();
-        
-        const savedTheme = localStorage.getItem('sudokuTheme');
-        if (savedTheme !== null) {
-            this.currentThemeIndex = parseInt(savedTheme);
-            this.applyTheme();
-        }
     }
 
     initAudio() {
         if (!this.soundEnabled) return;
-        if (!this.audioCtx) {
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            if (AudioContext) this.audioCtx = new AudioContext();
-        }
+        if (!this.audioCtx) { const AudioContext = window.AudioContext || window.webkitAudioContext; if (AudioContext) this.audioCtx = new AudioContext(); }
         if (this.audioCtx && this.audioCtx.state === 'suspended') this.audioCtx.resume();
     }
 
@@ -468,21 +600,23 @@ class SudokuGame {
     playIceBreakSound() {
         if (!this.soundEnabled || !this.audioCtx) return;
         const time = this.audioCtx.currentTime;
-        const osc = this.audioCtx.createOscillator();
-        osc.type = 'sine'; osc.frequency.setValueAtTime(2800, time); osc.frequency.exponentialRampToValueAtTime(800, time + 0.15);
-        const gain = this.audioCtx.createGain();
-        gain.gain.setValueAtTime(0.4, time); gain.gain.exponentialRampToValueAtTime(0.01, time + 0.15);
+        const osc = this.audioCtx.createOscillator(); osc.type = 'sine'; osc.frequency.setValueAtTime(2800, time); osc.frequency.exponentialRampToValueAtTime(800, time + 0.15);
+        const gain = this.audioCtx.createGain(); gain.gain.setValueAtTime(0.4, time); gain.gain.exponentialRampToValueAtTime(0.01, time + 0.15);
         osc.connect(gain); gain.connect(this.audioCtx.destination); osc.start(time); osc.stop(time + 0.15);
     }
 
     playIceCrackSound(delayInSeconds) {
         if (!this.soundEnabled || !this.audioCtx) return;
         const time = this.audioCtx.currentTime + delayInSeconds;
-        const osc = this.audioCtx.createOscillator();
-        osc.type = 'square'; osc.frequency.setValueAtTime(4000, time); osc.frequency.exponentialRampToValueAtTime(1000, time + 0.05);
-        const gain = this.audioCtx.createGain();
-        gain.gain.setValueAtTime(0.05, time); gain.gain.exponentialRampToValueAtTime(0.01, time + 0.05);
+        const osc = this.audioCtx.createOscillator(); osc.type = 'square'; osc.frequency.setValueAtTime(4000, time); osc.frequency.exponentialRampToValueAtTime(1000, time + 0.05);
+        const gain = this.audioCtx.createGain(); gain.gain.setValueAtTime(0.05, time); gain.gain.exponentialRampToValueAtTime(0.01, time + 0.05);
         osc.connect(gain); gain.connect(this.audioCtx.destination); osc.start(time); osc.stop(time + 0.05);
+    }
+
+    showToast(icon, text) {
+        const toast = document.getElementById('toast');
+        document.getElementById('toast-icon').textContent = icon; document.getElementById('toast-text').textContent = text;
+        toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 3500);
     }
 
     loadDataFallback() {
@@ -490,9 +624,9 @@ class SudokuGame {
         if (savedStats) {
             let local = JSON.parse(savedStats);
             if (local.totalGames < 2133) local.totalGames = 2133;
-            if (local.bestTimes.easy === null) local.bestTimes.easy = 999999;
-            if (local.bestTimes.medium === null) local.bestTimes.medium = 999999;
-            if (local.bestTimes.hard === null) local.bestTimes.hard = 999999;
+            if (local.points === undefined) local.points = 0;
+            if (!local.inventory) local.inventory = { themes: ['theme-light', 'theme-dark', 'theme-ocean'], frames: [], badges: [], perks: [] };
+            if (!local.equipped) local.equipped = { frame: null, badge: null };
             this.playerStats = local;
         }
         this.saveLocalStats();
@@ -501,15 +635,167 @@ class SudokuGame {
     saveLocalStats() { localStorage.setItem('sudokuStats', JSON.stringify(this.playerStats)); }
 
     cycleTheme() {
-        this.currentThemeIndex = (this.currentThemeIndex + 1) % this.themes.length;
-        this.applyTheme();
-        localStorage.setItem('sudokuTheme', this.currentThemeIndex);
+        // Only cycle through OWNED themes
+        const availableThemes = this.playerStats.inventory.themes;
+        this.currentThemeIndex = (this.currentThemeIndex + 1) % availableThemes.length;
+        this.applyTheme(availableThemes[this.currentThemeIndex]);
     }
 
-    applyTheme() {
-        this.themes.forEach(theme => document.body.classList.remove(theme));
-        const themeToApply = this.themes[this.currentThemeIndex];
+    applyTheme(forceTheme = null) {
+        const availableThemes = this.playerStats.inventory.themes;
+        const themeToApply = forceTheme || availableThemes[this.currentThemeIndex];
+        
+        // Remove all possible themes
+        ['theme-light', 'theme-dark', 'theme-ocean', 'theme-dark-pro', 'theme-gold-elite', 'theme-neon-night', 'theme-black-gold', 'theme-platinum'].forEach(t => document.body.classList.remove(t));
+        
         if (themeToApply !== 'theme-light') document.body.classList.add(themeToApply);
+        localStorage.setItem('sudokuTheme', availableThemes.indexOf(themeToApply));
+    }
+
+    // --- SHOP SYSTEM ---
+    getHintCost() { return this.playerStats.inventory.perks.includes('perk-hint-50') ? 50 : 100; }
+
+    renderShop() {
+        const container = document.getElementById('shop-container');
+        document.getElementById('shop-points-display').textContent = this.playerStats.points;
+        container.innerHTML = '';
+        const inv = this.playerStats.inventory;
+
+        // Consumables
+        let html = `<div class="shop-category"><h3>🛠️ Consumables</h3>`;
+        html += `
+            <button class="shop-item" onclick="game.useHint()">
+                <div class="item-info"><span class="item-name">💡 Buy Hint</span></div>
+                <div class="item-action">${this.getHintCost()} pts</div>
+            </button>
+            <button class="shop-item" onclick="game.buyFillNotes()">
+                <div class="item-info"><span class="item-name">✍️ Fill All Notes</span></div>
+                <div class="item-action">150 pts</div>
+            </button>
+            <button class="shop-item" onclick="game.buyTimeFreeze()">
+                <div class="item-info"><span class="item-name">❄️ Time Freeze (30s)</span></div>
+                <div class="item-action">300 pts</div>
+            </button>
+        </div>`;
+
+        // Generate Non-Consumable Categories
+        const categories = [
+            { id: 'themes', icon: '🎨', label: 'Board Themes' },
+            { id: 'frames', icon: '🖼️', label: 'Profile Frames' },
+            { id: 'badges', icon: '📛', label: 'Profile Badges' },
+            { id: 'perks', icon: '⚡', label: 'Permanent Perks' }
+        ];
+
+        for(let cat of categories) {
+            html += `<div class="shop-category"><h3>${cat.icon} ${cat.label}</h3>`;
+            for (let item of SHOP_DEF[cat.id]) {
+                let isOwned = inv[cat.id].includes(item.id);
+                let isEquipped = false;
+                if(cat.id === 'themes') isEquipped = (this.playerStats.inventory.themes[this.currentThemeIndex] === item.id);
+                if(cat.id === 'frames') isEquipped = (this.playerStats.equipped.frame === item.id);
+                if(cat.id === 'badges') isEquipped = (this.playerStats.equipped.badge === item.id);
+
+                let actionBtn = `<div class="item-action">${item.cost} pts</div>`;
+                if(isEquipped && cat.id !== 'perks') actionBtn = `<div class="item-action equipped">Equipped</div>`;
+                else if(isOwned) actionBtn = cat.id === 'perks' ? `<div class="item-action owned">Active</div>` : `<div class="item-action owned">Equip</div>`;
+
+                html += `
+                    <button class="shop-item" onclick="game.buyItem('${cat.id}', '${item.id}', ${item.cost})">
+                        <div class="item-info">
+                            <span class="item-name">${item.name}</span>
+                        </div>
+                        ${actionBtn}
+                    </button>
+                `;
+            }
+            html += `</div>`;
+        }
+        container.innerHTML = html;
+    }
+
+    buyItem(category, itemId, cost) {
+        const inv = this.playerStats.inventory;
+        if (inv[category].includes(itemId)) {
+            // Already owned -> Equip it
+            if (category === 'themes') {
+                this.currentThemeIndex = inv.themes.indexOf(itemId);
+                this.applyTheme();
+            } else if (category === 'frames') {
+                this.playerStats.equipped.frame = itemId;
+            } else if (category === 'badges') {
+                this.playerStats.equipped.badge = itemId;
+            }
+            this.saveLocalStats();
+            if(window.saveToCloud) window.saveToCloud({ equipped: this.playerStats.equipped });
+            this.updateStatsUI(); // Re-render profile
+            this.renderShop();
+            return;
+        }
+
+        if (this.playerStats.points >= cost) {
+            this.playerStats.points -= cost;
+            inv[category].push(itemId);
+            
+            // Auto equip on buy
+            if (category === 'themes') {
+                this.currentThemeIndex = inv.themes.indexOf(itemId);
+                this.applyTheme();
+            } else if (category === 'frames') this.playerStats.equipped.frame = itemId;
+            else if (category === 'badges') this.playerStats.equipped.badge = itemId;
+
+            this.saveLocalStats();
+            if(window.saveToCloud) window.saveToCloud({ points: this.playerStats.points, inventory: inv, equipped: this.playerStats.equipped });
+            
+            this.updateStatsUI();
+            this.renderShop();
+            this.updateNumpadUI(); // Updates hint cost dynamically
+            this.showToast('🛍️', 'Purchase successful!');
+        } else {
+            this.showToast('❌', 'Not enough points!');
+        }
+    }
+
+    showShop() {
+        const wasPaused = this.isPaused;
+        if (!wasPaused) this.togglePause();
+        this.renderShop();
+        document.getElementById('shop-screen').classList.add('active');
+        this.resumeAfterShop = !wasPaused;
+    }
+
+    hideShop() {
+        document.getElementById('shop-screen').classList.remove('active');
+        if (this.resumeAfterShop) this.togglePause();
+    }
+
+    // --- END SHOP SYSTEM ---
+
+    updateStatsUI() {
+        document.getElementById('stat-total-games').textContent = this.playerStats.totalGames;
+        document.getElementById('ui-points').textContent = this.playerStats.points || 0;
+        
+        const formatBestTime = (time) => (time === 999999 || time === null) ? '--:--' : this.formatTime(time);
+        document.getElementById('stat-best-easy').textContent = formatBestTime(this.playerStats.bestTimes.easy);
+        document.getElementById('stat-best-medium').textContent = formatBestTime(this.playerStats.bestTimes.medium);
+        document.getElementById('stat-best-hard').textContent = formatBestTime(this.playerStats.bestTimes.hard);
+
+        // Update Hint Button Cost
+        document.getElementById('hint-btn-ui').textContent = `Hint (${this.getHintCost()})`;
+
+        // Update Profile Card rendering
+        const frameEl = document.getElementById('ui-frame');
+        const badgeEl = document.getElementById('ui-badge');
+        
+        frameEl.className = 'player-frame';
+        if (this.playerStats.equipped.frame) frameEl.classList.add(this.playerStats.equipped.frame);
+        
+        badgeEl.className = 'player-title';
+        if (this.playerStats.equipped.badge) {
+            badgeEl.classList.add(this.playerStats.equipped.badge);
+            badgeEl.textContent = 'LEGEND';
+        } else {
+            badgeEl.textContent = 'Novice Solver';
+        }
     }
 
     showStats() {
@@ -520,19 +806,40 @@ class SudokuGame {
         this.resumeAfterStats = !wasPaused; 
     }
 
-    updateStatsUI() {
-        document.getElementById('stat-total-games').textContent = this.playerStats.totalGames;
-        const formatBestTime = (time) => (time === 999999 || time === null) ? '--:--' : this.formatTime(time);
-        document.getElementById('stat-best-easy').textContent = formatBestTime(this.playerStats.bestTimes.easy);
-        document.getElementById('stat-best-medium').textContent = formatBestTime(this.playerStats.bestTimes.medium);
-        document.getElementById('stat-best-hard').textContent = formatBestTime(this.playerStats.bestTimes.hard);
-    }
-
     hideStats() {
         document.getElementById('stats-screen').classList.remove('active');
         if (this.resumeAfterStats) this.togglePause(); 
     }
 
+    renderAchievements() {
+        const grid = document.getElementById('achievements-grid');
+        grid.innerHTML = '';
+        for (const [id, ach] of Object.entries(ACHIEVEMENTS_DEF)) {
+            const isUnlocked = this.playerStats.achievements.includes(id);
+            grid.innerHTML += `
+                <div class="ach-card ${isUnlocked ? 'unlocked' : ''}">
+                    <div class="ach-icon">${ach.icon}</div>
+                    <div class="ach-title">${ach.title}</div>
+                    <div class="ach-desc">${ach.desc}</div>
+                </div>
+            `;
+        }
+    }
+
+    showAchievements() {
+        const wasPaused = this.isPaused;
+        if (!wasPaused) this.togglePause();
+        this.renderAchievements();
+        document.getElementById('achievements-screen').classList.add('active');
+        this.resumeAfterAch = !wasPaused;
+    }
+
+    hideAchievements() {
+        document.getElementById('achievements-screen').classList.remove('active');
+        if (this.resumeAfterAch) this.togglePause();
+    }
+
+    // --- GAME ENGINE ---
     initUI() {
         for (let r = 0; r < 9; r++) {
             for (let c = 0; c < 9; c++) {
@@ -567,6 +874,14 @@ class SudokuGame {
             btn.onclick = () => this.handleNumpadClick(i);
             this.numpadEl.appendChild(btn);
         }
+        
+        // Initial config
+        const savedTheme = localStorage.getItem('sudokuTheme');
+        if (savedTheme !== null) {
+            this.currentThemeIndex = parseInt(savedTheme);
+            if(this.currentThemeIndex >= this.playerStats.inventory.themes.length) this.currentThemeIndex = 0;
+            this.applyTheme();
+        }
     }
 
     newGame() {
@@ -579,7 +894,13 @@ class SudokuGame {
     resetState() {
         clearInterval(this.timerInterval);
         this.mode = document.getElementById('game-mode').value;
-        this.time = 0; this.mistakes = 0;
+        this.time = 0; 
+        this.timeFrozen = false;
+        this.freezeLeft = 0;
+        this.mistakes = 0;
+        this.hintsUsed = 0; 
+        this.usedEraser = false;
+        this.usedNotes = false;
         this.selectedCell = null; this.selectedNumber = null;
         this.isPaused = false;
         
@@ -593,6 +914,7 @@ class SudokuGame {
         this.updateStatsUI();
         this.updateNumpadUI();
         document.getElementById('timer').textContent = "00:00";
+        document.getElementById('timer').style.color = '';
         document.getElementById('mistakes').textContent = "0";
         
         document.querySelectorAll('.overlay').forEach(el => el.classList.remove('active'));
@@ -658,22 +980,15 @@ class SudokuGame {
             }
         }
 
-        // BUGFIX: Killer Sudoku handles wiping the board explicitly now
         if (this.mode === 'killer') {
             this.generateKillerCages();
-            for (let r = 0; r < 9; r++) {
-                for (let c = 0; c < 9; c++) {
-                    this.grid[r][c] = 0; // Wipe the board clean to rely entirely on cage hints
-                }
-            }
+            for (let r = 0; r < 9; r++) for (let c = 0; c < 9; c++) this.grid[r][c] = 0;
         } else {
-            // Standard Removal Logic for Classic, Ice, Even-Odd, and Greater Than
             const difficultyMap = { easy: 35, medium: 45, hard: 55 };
             let targetRemovals = difficultyMap[document.getElementById('difficulty').value];
             
             if (this.mode === 'even-odd') targetRemovals += 10;
             if (this.mode === 'greater') targetRemovals += 5; 
-            
             targetRemovals = Math.min(targetRemovals, 81);
 
             let positions = [];
@@ -783,7 +1098,7 @@ class SudokuGame {
 
     handleCellClick(r, c) {
         this.initAudio(); 
-        if (this.isPaused || document.getElementById('stats-screen').classList.contains('active')) return;
+        if (this.isPaused || document.getElementById('stats-screen').classList.contains('active') || document.getElementById('achievements-screen').classList.contains('active') || document.getElementById('shop-screen').classList.contains('active')) return;
         
         if (this.selectedNumber !== null) {
             if (this.selectedNumber === 0) this.applyErase(r, c); else this.applyNumber(this.selectedNumber, r, c);
@@ -796,7 +1111,7 @@ class SudokuGame {
 
     handleNumpadClick(num) {
         this.initAudio(); 
-        if (this.isPaused || document.getElementById('stats-screen').classList.contains('active')) return;
+        if (this.isPaused || document.getElementById('stats-screen').classList.contains('active') || document.getElementById('achievements-screen').classList.contains('active') || document.getElementById('shop-screen').classList.contains('active')) return;
 
         if (this.selectedCell !== null) this.applyNumber(num, this.selectedCell.r, this.selectedCell.c);
         else { this.selectedNumber = (this.selectedNumber === num) ? null : num; this.updateNumpadUI(); this.highlightCells(); }
@@ -819,6 +1134,7 @@ class SudokuGame {
 
         if (this.notesMode) {
             if (this.grid[r][c] !== 0) return; 
+            this.usedNotes = true;
             if (this.notes[r][c].has(num)) this.notes[r][c].delete(num); else this.notes[r][c].add(num);
             this.renderNotes(r, c);
         } else {
@@ -839,6 +1155,68 @@ class SudokuGame {
             }
             document.getElementById('mistakes').textContent = this.mistakes;
         }
+    }
+
+    // --- POINTS SHOP LOGIC ---
+    useHint() {
+        const cost = this.getHintCost();
+        if(this.playerStats.points < cost) { this.showToast('❌', `Not enough points (${cost} needed)!`); return; }
+        
+        let targetR = -1, targetC = -1;
+        if (this.selectedCell && this.grid[this.selectedCell.r][this.selectedCell.c] === 0) {
+            targetR = this.selectedCell.r; targetC = this.selectedCell.c;
+        } else {
+            let empty = [];
+            for(let i=0; i<9; i++) for(let j=0; j<9; j++) if(this.grid[i][j]===0) empty.push({r:i, c:j});
+            if(empty.length === 0) { this.hideShop(); return; }
+            let pick = empty[Math.floor(Math.random()*empty.length)];
+            targetR = pick.r; targetC = pick.c;
+        }
+
+        this.playerStats.points -= cost;
+        this.hintsUsed++;
+        this.updateStatsUI();
+        this.saveLocalStats();
+        if(window.saveToCloud) window.saveToCloud({ points: this.playerStats.points });
+
+        const prev = this.notesMode; this.notesMode = false; this.applyNumber(this.solution[targetR][targetC], targetR, targetC); this.notesMode = prev;
+        this.showToast('💡', 'Hint Used!');
+        this.hideShop();
+    }
+
+    buyTimeFreeze() {
+        if(this.playerStats.points < 300) { this.showToast('❌', 'Not enough points (300 needed)!'); return; }
+        this.playerStats.points -= 300;
+        this.timeFrozen = true;
+        this.freezeLeft = 30;
+        this.updateStatsUI();
+        this.saveLocalStats();
+        if(window.saveToCloud) window.saveToCloud({ points: this.playerStats.points });
+        
+        document.getElementById('timer').style.color = '#00e5ff';
+        this.showToast('❄️', 'Time Frozen for 30s!');
+        this.hideShop();
+    }
+
+    buyFillNotes() {
+        if(this.playerStats.points < 150) { this.showToast('❌', 'Not enough points (150 needed)!'); return; }
+        this.playerStats.points -= 150;
+        this.updateStatsUI();
+        this.saveLocalStats();
+        if(window.saveToCloud) window.saveToCloud({ points: this.playerStats.points });
+
+        for(let r=0; r<9; r++) {
+            for(let c=0; c<9; c++) {
+                if(this.grid[r][c] === 0) {
+                    this.notes[r][c].clear();
+                    for(let n=1; n<=9; n++) if(this.isSafe(this.grid, r, c, n)) this.notes[r][c].add(n);
+                    this.renderNotes(r, c);
+                }
+            }
+        }
+        this.usedNotes = true;
+        this.showToast('✍️', 'All possible notes filled!');
+        this.hideShop();
     }
 
     triggerShockwave(originR, originC) {
@@ -873,6 +1251,7 @@ class SudokuGame {
     applyErase(r, c) {
         const cellEl = this.boardEl.children[r * 9 + c];
         if (cellEl.classList.contains('fixed')) return;
+        this.usedEraser = true;
         this.grid[r][c] = 0; cellEl.querySelector('.val').textContent = ''; cellEl.classList.remove('user', 'error');
         this.highlightCells();
     }
@@ -947,17 +1326,29 @@ class SudokuGame {
 
     toggleNotes() { this.notesMode = !this.notesMode; document.getElementById('notes-btn').classList.toggle('active', this.notesMode); }
 
-    useHint() {
-        if (!this.selectedCell || this.isPaused) return; 
-        const {r, c} = this.selectedCell; if (this.grid[r][c] !== 0) return;
-        const prev = this.notesMode; this.notesMode = false; this.applyNumber(this.solution[r][c], r, c); this.notesMode = prev;
+    startTimer() { 
+        this.timerInterval = setInterval(() => { 
+            if (!this.isPaused) { 
+                if (this.timeFrozen) {
+                    this.freezeLeft--;
+                    if(this.freezeLeft <= 0) {
+                        this.timeFrozen = false;
+                        document.getElementById('timer').style.color = '';
+                    }
+                } else {
+                    this.time++; 
+                }
+                document.getElementById('timer').textContent = this.formatTime(this.time); 
+            } 
+        }, 1000); 
     }
 
-    startTimer() { this.timerInterval = setInterval(() => { if (!this.isPaused) { this.time++; document.getElementById('timer').textContent = this.formatTime(this.time); } }, 1000); }
     formatTime(seconds) { return `${Math.floor(seconds / 60).toString().padStart(2, '0')}:${(seconds % 60).toString().padStart(2, '0')}`; }
 
     togglePause() {
-        if (document.getElementById('stats-screen').classList.contains('active') && !this.isPaused) return;
+        if (document.getElementById('stats-screen').classList.contains('active') || 
+            document.getElementById('achievements-screen').classList.contains('active') ||
+            document.getElementById('shop-screen').classList.contains('active')) return;
         this.isPaused = !this.isPaused;
         document.getElementById('pause-screen').classList.toggle('active', this.isPaused);
         document.getElementById('pause-btn').textContent = this.isPaused ? 'Resume' : 'Pause';
@@ -969,11 +1360,87 @@ class SudokuGame {
         document.getElementById('win-title').textContent = "Puzzle Solved!"; this.handleWin();
     }
 
+    checkAchievements(difficulty) {
+        const p = this.playerStats;
+        if (!p.achievements) p.achievements = [];
+        let unlockedAny = false;
+        let lastUnlocked = null;
+
+        const unlock = (id) => {
+            if (!p.achievements.includes(id)) {
+                p.achievements.push(id);
+                unlockedAny = true;
+                lastUnlocked = ACHIEVEMENTS_DEF[id];
+            }
+        };
+
+        if (p.totalGames >= 1) unlock('first_steps');
+        if (p.totalGames >= 10) unlock('momentum');
+        if (p.totalGames >= 100) unlock('grandmaster');
+        if (p.totalGames >= 500) unlock('veteran');
+        if (p.totalGames >= 1000) unlock('master');
+        if (p.totalGames >= 2000) unlock('elite');
+        if (p.totalGames >= 3000) unlock('legend');
+        if (p.totalGames >= 5000) unlock('immortal');
+
+        if (difficulty === 'easy' && this.time < 180) unlock('sonic');
+        if (difficulty === 'easy' && this.time < 300) unlock('lightning');
+        if (difficulty === 'medium' && this.time < 480) unlock('speed_demon');
+        if (difficulty === 'hard' && this.time < 900) unlock('blazing');
+        if (this.time > 1200) unlock('calm');
+
+        if (this.mistakes === 0) unlock('flawless');
+        if (!this.usedNotes) unlock('ink_only');
+        if (!this.usedEraser) unlock('no_eraser');
+        if (this.mistakes === 2) unlock('clutch');
+        if (this.hintsUsed >= 3) unlock('hero');
+        
+        if (difficulty === 'hard' && this.hintsUsed === 0) unlock('logic');
+        if (difficulty === 'hard' && this.hintsUsed === 0 && this.mistakes === 0) unlock('true_genius');
+
+        if (this.mode === 'ice') unlock('ice_win');
+        if (this.mode === 'even-odd') unlock('even_win');
+        if (this.mode === 'greater') unlock('greater_win');
+        if (this.mode === 'killer') unlock('killer_win');
+
+        if (unlockedAny && lastUnlocked) {
+            setTimeout(() => { this.showToast(lastUnlocked.icon, `${lastUnlocked.title} Unlocked!`); }, 1000);
+        }
+    }
+
     async handleWin() {
         clearInterval(this.timerInterval);
         this.playerStats.totalGames++;
-        const currentDifficulty = document.getElementById('difficulty').value;
-        if (this.time < this.playerStats.bestTimes[currentDifficulty]) this.playerStats.bestTimes[currentDifficulty] = this.time;
+        const diff = document.getElementById('difficulty').value;
+        if (this.time < this.playerStats.bestTimes[diff]) this.playerStats.bestTimes[diff] = this.time;
+        
+        // --- POINTS CALCULATION WITH PERKS ---
+        let ptsEarned = 0;
+        if (diff === 'easy') ptsEarned = 50;
+        else if (diff === 'medium') ptsEarned = 100;
+        else if (diff === 'hard') ptsEarned = 200;
+
+        const today = new Date().toDateString();
+        let dailyBonus = 0;
+        if(this.playerStats.lastPlayDate !== today) {
+            dailyBonus = 100;
+            if (this.playerStats.inventory.perks.includes('perk-daily-2x')) dailyBonus = 200;
+            this.playerStats.lastPlayDate = today;
+        }
+
+        let totalEarned = ptsEarned + dailyBonus;
+
+        let multiplier = 1.0;
+        if (this.playerStats.inventory.perks.includes('perk-bonus-5')) multiplier += 0.05;
+        if (this.playerStats.inventory.perks.includes('perk-bonus-10')) multiplier += 0.10;
+        if (this.playerStats.inventory.perks.includes('perk-sunday-5') && new Date().getDay() === 0) multiplier += 0.05;
+
+        totalEarned = Math.floor(totalEarned * multiplier);
+        this.playerStats.points = (this.playerStats.points || 0) + totalEarned;
+        
+        document.getElementById('win-pts').textContent = `+${totalEarned} Points!`;
+
+        this.checkAchievements(diff);
         
         this.saveLocalStats();
         if(window.saveToCloud) await window.saveToCloud(this.playerStats);
@@ -988,7 +1455,7 @@ class SudokuGame {
         window.addEventListener('keydown', (e) => {
             if(!this.isInitialized) return;
             this.initAudio(); 
-            if (this.isPaused || document.getElementById('win-screen').classList.contains('active') || document.getElementById('stats-screen').classList.contains('active')) return;
+            if (this.isPaused || document.getElementById('win-screen').classList.contains('active') || document.getElementById('stats-screen').classList.contains('active') || document.getElementById('achievements-screen').classList.contains('active') || document.getElementById('shop-screen').classList.contains('active')) return;
             if (e.key >= '1' && e.key <= '9') this.handleNumpadClick(parseInt(e.key));
             if (e.key === 'Backspace' || e.key === 'Delete') { if (this.selectedCell) this.applyErase(this.selectedCell.r, this.selectedCell.c); else this.toggleEraser(); }
             if (e.key.toLowerCase() === 'n') this.toggleNotes();
